@@ -1,0 +1,43 @@
+body, h1 {
+  font-family: 'Berkshire';
+}
+
+body, html {
+  height: 100%;
+}
+
+.back-image {
+  background-image: url('../resources/background.jpeg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+p {
+  font-size: 32px;
+}
+
+
+button {
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.btn-outline-secondary,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active,
+.btn-outline-secondary:visited,
+.btn-outline-secondary:focus {
+    color: gold;
+    border-color: gold !important;
+}
+
+i {
+  font-size: 42px;
+  color: gold;
+}
+

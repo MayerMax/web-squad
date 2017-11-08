@@ -1,0 +1,108 @@
+h1, h2, h3, p {
+  color: black;
+  font-family: 'Raleway';
+}
+.stat-head {
+  margin-top: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.stat {
+  color: white;
+  font-family: 'Raleway';
+  font-size: 45px;
+}
+
+.borders {
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 5px;
+  background-color: tomato;
+}
+
+.cards {
+  margin-top: 32px;
+}
+
+.high {
+  color: green;
+}
+
+.med {
+  color: yellow;
+}
+
+.low {
+  color: red;
+}
+
+.flip-container {
+  perspective: 1000;
+
+}
+
+.flip-container:hover .flipper {
+  transform: rotateY(180deg);
+}
+
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.front,
+.back {
+  backface-visibility: hidden;
+}
+
+.back {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.front {
+  z-index: 2;
+}
+
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.back span {
+  position: relative;
+  top: 105px;
+  margin-right: 5px;
+
+}
+.back a {
+  position: relative;
+  top: 100px;  
+}
+
+
+
+
+.avatar img, .pl-feed img {
+    display: block;
+    margin: auto;
+    width: 40%;
+}
+
+.row .pl-feed{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.row .pl-feed-text {
+  text-align: left;
+}
+
+
+@media(min-width: 601px) and (max-width: 701px) {
+  .small {
+    font-size: 11px;
+  }
+}
