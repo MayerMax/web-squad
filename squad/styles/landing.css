@@ -41,3 +41,9 @@ i {
   color: gold;
 }
 
+
+button a, button a:hover {
+  color: gold;
+}
+
+.border-grey,.hover-border-grey:hover,.border-gray,.hover-border-gray:hover{border-color:#bbb!important}
