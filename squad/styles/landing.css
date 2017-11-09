@@ -37,7 +37,7 @@ button {
 }
 
 i {
-  font-size: 42px;
+  font-size: 50px;
   color: gold;
 }
 
@@ -47,3 +47,5 @@ button a, button a:hover {
 }
 
 .border-grey,.hover-border-grey:hover,.border-gray,.hover-border-gray:hover{border-color:#bbb!important}
+
+.info{color:#fff!important;background-color:tomato!important}
