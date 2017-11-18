@@ -79,6 +79,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 	left:50%;
 	transform:translate(-50%,-50%);
 	-ms-transform:translate(-50%,-50%)}
+.display-bottommiddle{position:absolute;left:50%;bottom:0;transform:translate(-50%,0%);-ms-transform:translate(-50%,0%)}
 
 .padding-large{padding:12px 24px!important}
 .xlarge{font-size:24px!important}

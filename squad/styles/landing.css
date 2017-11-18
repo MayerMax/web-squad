@@ -36,7 +36,7 @@ button {
     border-color: gold !important;
 }
 
-i {
+.menu {
   font-size: 50px;
   color: gold;
 }
@@ -49,3 +49,92 @@ button a, button a:hover {
 .border-grey,.hover-border-grey:hover,.border-gray,.hover-border-gray:hover{border-color:#bbb!important}
 
 .info{color:#fff!important;background-color:tomato!important}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+}
+
+.footer a {
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 30px;
+  margin-left: 20px;
+}
+
+@media(min-width: 1800px) {
+  
+  .logo-man {
+    font-size: 150px;
+  }
+
+  .footer a {
+    font-size: 30px;
+  }
+
+  .menu {
+    font-size: 50px !important;
+  }
+
+  .gal {
+    font-size: 30px !important;
+  }
+
+  .button {
+    font-size: 23px !important;
+  }
+
+  h1 {
+    font-size: 76px;
+  }
+}
+
+
+@media(min-width: 2500px) {
+  .footer a {
+    font-size: 45px;
+  }
+
+  .menu {
+    font-size: 60px !important;
+  }
+
+  .gal {
+    font-size: 35px !important;
+  }
+
+  .button {
+    font-size: 30px !important;
+  }
+
+  h1 {
+    font-size: 86px;
+  }
+}
+
+
+@media(min-width: 3400px) {
+  .footer a {
+    font-size: 50px;
+  }
+
+  .menu {
+    font-size: 65px !important;
+  }
+
+  .gal {
+    font-size: 45px !important;
+  }
+
+  .button {
+    font-size: 35px !important;
+  }
+
+  h1 {
+    font-size: 92px;
+  }
+}

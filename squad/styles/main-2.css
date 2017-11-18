@@ -101,6 +101,10 @@ h1, h2, h3, p {
 }
 
 
+.contact-me {
+  font-size: 30px;
+}
+
 @media(min-width: 601px) and (max-width: 701px) {
   .small {
     font-size: 11px;
@@ -125,5 +129,126 @@ h1, h2, h3, p {
 @media(min-width: 601px) and (max-width: 741px) {
   .visible-el {
     display: none;
+  }
+}
+
+
+@media(min-width: 1500px) {
+  
+  .profi {
+    min-height: 550px !important;
+  }
+
+  .logo-man {
+    font-size: 150px !important;
+  }
+  .names {
+    font-size: 30px !important;
+  }
+  .card > p {
+    font-size: 30px;
+  }
+
+  table {
+    font-size: 20px;
+  }
+
+  .container p, .container h3 {
+    font-size: 25px;
+  }
+
+  .back {
+    font-size: 25px;
+  }
+
+  .stat-head {
+    font-size: 25px;
+  }
+
+  .moments h3 {
+    font-size: 30px;
+  }
+
+  .small {
+    font-size: 20px;
+  }
+
+  .sm-rank {
+    font-size: 15px !important;
+  }
+}
+
+
+@media(min-width: 2500px) {
+  h2 {
+    font-size: 35px;
+  }
+
+  .feed-title {
+    font-size: 40px !important;
+  }
+
+  .profi {
+    min-height: 750px !important;
+  }
+
+  .button {
+    font-size: 30px;
+  }
+  .names {
+    font-size: 40px !important;
+  }
+  .card > p {
+    font-size: 40px;
+  }
+
+  table {
+    font-size: 35px;
+  }
+
+  .container p, .container h3 {
+    font-size: 40px;
+  }
+
+  .back {
+    font-size: 35px;
+  }
+
+  .stat-head {
+    font-size: 40px;
+  }
+
+  .moments h3 {
+    font-size: 40px;
+  }
+
+  .small {
+    font-size: 30px;
+  }
+
+  .sm-rank {
+    font-size: 25px !important;
+  }
+
+}
+
+
+@media(min-width: 3500px) {
+  .sm-rank {
+    font-size: 30px !important;
+  }
+}
+
+@media(min-width: 3800px) {
+    .moments h3 {
+    font-size: 47px;
+  }
+
+  .small {
+    font-size: 40px;
+  }
+
+  .sm-rank {
+    font-size: 30px !important;
   }
 }
