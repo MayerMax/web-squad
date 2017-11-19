@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Squad|Gallery</title>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="../resources/manager.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<style type="text/css">
+		img.hover-shadow {
+	  	transition: 0.3s;
+	}
+
+		.hover-shadow:hover {
+	  		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+		.cursor {
+  			cursor: pointer;
+	}
+
+		.modal {
+		    display: none; /* Hidden by default */
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    padding-top: 100px; /* Location of the box */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */
+		    background-color: rgb(0,0,0); /* Fallback color */
+		    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+	}
+
+		.modal-content {
+		    margin: auto;
+		    display: block;
+		    width: 80%;
+		    max-width: 700px;
+	}
+
+	.modal-content, #caption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+	}
+
+	
+		@-webkit-keyframes zoom {
+		    from {-webkit-transform:scale(0)} 
+		    to {-webkit-transform:scale(1)}
+	}
+
+		@keyframes zoom {
+		    from {transform:scale(0)} 
+		    to {transform:scale(1)}
+	}
+
+		.close {
+	  color: white;
+	  position: absolute;
+	  top: 10px;
+	  right: 25px;
+	  font-size: 35px;
+	  font-weight: bold;
+	}
+
+		.close:hover,
+		.close:focus {
+		  color: #999;
+		  text-decoration: none;
+		  cursor: pointer;
+	}
+
+
+</style>
+<body onkeydown="saveClose(event);">
+	<div class="w3-top">
+  		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    		<a href="profile.html" class="w3-bar-item w3-button"><b>Squad</b> Shaposhnikov</a>
+    		<div class="w3-right w3-hide-small">
+      			<a href="landing.html" class="w3-bar-item w3-button">Main</a>
+      			<a href="profile.html" class="w3-bar-item w3-button">Profile</a>
+    		</div>
+  		</div>
+	</div>
+	<div class="w3-container w3-padding-32" id="themes" style="margin-top: 20px;">
+    	<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"><i class="fa fa-wpexplorer" aria-hidden="true"></i> Landing page gallery</h3>
+  	</div>
+  	<div class="w3-row-padding">
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      <div class="w3-display-container">
+	        	<div class="w3-display-topleft w3-black w3-padding">Iniesta</div>
+	        	<img id = 'img1' src="../resources/background.jpeg" onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+	        	<div class="w3-display-topleft w3-black w3-padding">Messi</div>
+	        	<img id = 'img2' src="../resources/messi-gal.jpg" onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+		        <div class="w3-display-topleft w3-black w3-padding">Isco</div>
+		        <img id = 'img3' src="../resources/isco-gal.jpg" onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+		        <div class="w3-display-topleft w3-black w3-padding">Hazard</div>
+		        <img  id = 'img4' src="../resources/hazard-gal.jpg" onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+  </div>
+
+  <div class="w3-row-padding">
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      <div class="w3-display-container">
+	      		<div class="w3-display-topleft w3-black w3-padding">Hazard</div>
+		        <img id = 'img5' src="../resources/hazard-gal.jpg" onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+	      		<div class="w3-display-topleft w3-black w3-padding">Isco</div>
+		        <img id = 'img6' src="../resources/isco-gal.jpg" onclick="openWindow(event);" class="hover-shadow" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+	      		<div class="w3-display-topleft w3-black w3-padding">Messi</div>
+	        	<img id = 'img7' src="../resources/messi-gal.jpg" onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+	      		<div class="w3-display-topleft w3-black w3-padding">Iniesta</div>
+	        	<img id = 'img8' src="../resources/background.jpeg"  onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+  </div>
+
+  <div class="w3-row-padding">
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      <div class="w3-display-container">
+	      		 <div class="w3-display-topleft w3-black w3-padding">Messi</div>
+	        	<img id = 'img9' src="../resources/messi-gal.jpg"  onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      </div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+	      		<div class="w3-display-topleft w3-black w3-padding">Iniesta</div>
+	        	<img  id = 'img10' src="../resources/background.jpeg"  onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+	      		<div class="w3-display-topleft w3-black w3-padding">Hazard</div>
+		        <img id = 'img11' src="../resources/hazard-gal.jpg"  onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+	    <div class="w3-col l3 m6 w3-margin-bottom">
+	      	<div class="w3-display-container">
+	      		<div class="w3-display-topleft w3-black w3-padding">Isco</div>
+		        <img id = 'img12' src="../resources/isco-gal.jpg" onclick="openWindow(event);" class="hover-shadow cursor" alt="Player" style="width:100%">
+	      	</div>
+	    </div>
+  </div>
+  <div id='window' class="modal">
+  		<span class="close cursor" onclick="closeWindow();">&times;</span>
+  		<img  class="modal-content" src="" id='wide-image'>
+  		<div id='surround'></div>
+  </div>
+
+</body>
+<script type="text/javascript" src="../scripts/gallery-control.js"></script>
+
+<script type="text/javascript">
+var g = new Gallery();
+</script>
+
+</html>
