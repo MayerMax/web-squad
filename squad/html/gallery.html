@@ -43,6 +43,10 @@
 		    max-width: 700px;
 	}
 
+		.doc {
+			background-color: white;
+		}
+
 	.modal-content, #caption {    
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
@@ -79,7 +83,7 @@
 
 
 </style>
-<body onkeydown="saveClose(event);">
+<body onkeydown="eventHandler(event);">
 	<div class="w3-top">
   		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
     		<a href="profile.html" class="w3-bar-item w3-button"><b>Squad</b> Shaposhnikov</a>
@@ -177,12 +181,29 @@
   		<img  class="modal-content" src="" id='wide-image'>
   		<div id='surround'></div>
   </div>
-
+  <div id='documentation' class="modal">
+  	<div class="w3-row w3-center">
+  		<div class="w3-third">' '</div>
+  		<div class="w3-third doc">
+  			<div class="w3-card w3-container">
+  				<i class="fa fa-info-circle" aria-hidden="true" style="font-size: 100px;"></i>
+  				<br>
+  				<div class="info-text" style="font-size: 15px;">
+	  				<p>This is a Squad Gallery</p>
+	  				<p>Here what you can do:</p>
+	  				<ul>
+			  			<li>Left/Right arrow navigation while full image is open</li>
+			  			<li>ESC to close photo</li>
+			  			<li>press the button to use photo as your starter background on main page</li>
+	  				</ul>
+	  			</div>
+  			</div>
+  		</div>
+  		<div class="w3-third"> ' '</div>
+  	</div>
+  </div>
 </body>
 <script type="text/javascript" src="../scripts/gallery-control.js"></script>
 
-<script type="text/javascript">
-var g = new Gallery();
-</script>
 
 </html>

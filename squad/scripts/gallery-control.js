@@ -19,11 +19,18 @@ function Gallery() {
 
 }
 
+var g = new Gallery();
+var documentation = false;
+var view = false;
+var global_position = 0;
+
 function openWindow(event) {
   var pos = g.association[event.target.id];
   var imgObj = g.elements[pos];
   var neighbours = g.getNeighbours(pos);
   
+  global_position = pos;
+  view = true;  
   document.getElementById('window').style.display = "block";
 
   var wide = document.getElementById('wide-image');
@@ -31,13 +38,58 @@ function openWindow(event) {
 
 }
 
+function eventHandler(event) {
+	if (event.keyCode == 112 && !documentation) {
+		documentation = true;
+		actOnDocumentation(documentation);
+		return;
+	}
+	if (event.keyCode == 27 && documentation) {
+		documentation = false;
+		actOnDocumentation(documentation);
+		return;
+	}
+
+	if (event.keyCode == 27 && view) {
+		view = false;
+		closeWindow();
+		return;
+	}
+
+	if (event.keyCode == 37 && view) {
+		nextPicture(-1);
+		return;
+	}
+
+	if (event.keyCode == 39 && view) {
+		nextPicture(1);
+		return;
+	}
+
+
+}
+
 function closeWindow() {
   document.getElementById('window').style.display = "none";
 }
 
-function saveClose(event) {
-	if (document.getElementById('window').style.display == 'block') {
-		if (event.keyCode == 27)
-			closeWindow();
-	} 
+function actOnDocumentation(state) {
+	if (state == true)
+		document.getElementById('documentation').style.display = "block";
+	else
+		document.getElementById('documentation').style.display = "none";
+}
+
+function nextPicture(direction) {
+	var neighbours = g.getNeighbours(global_position);
+	var imgObj = direction > 0 ? neighbours[1] : neighbours[0];
+
+	var wide = document.getElementById('wide-image');
+  	wide.src = imgObj.src;
+
+  	global_position += direction;
+  	if (global_position < 0)
+  		global_position = g.elements.length -1;
+  	if (global_position >= g.elements.length)
+  		global_position = 0;
 }
