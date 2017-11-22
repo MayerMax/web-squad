@@ -6,83 +6,9 @@
 	<link rel="shortcut icon" type="image/png" href="../resources/manager.png"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" type="text/css" href="../styles/gallery.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
-<style type="text/css">
-		img.hover-shadow {
-	  	transition: 0.3s;
-	}
-
-		.hover-shadow:hover {
-	  		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	}
-
-		.cursor {
-  			cursor: pointer;
-	}
-
-		.modal {
-		    display: none; /* Hidden by default */
-		    position: fixed; /* Stay in place */
-		    z-index: 1; /* Sit on top */
-		    padding-top: 100px; /* Location of the box */
-		    left: 0;
-		    top: 0;
-		    width: 100%; /* Full width */
-		    height: 100%; /* Full height */
-		    overflow: auto; /* Enable scroll if needed */
-		    background-color: rgb(0,0,0); /* Fallback color */
-		    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-	}
-
-		.modal-content {
-		    margin: auto;
-		    display: block;
-		    width: 80%;
-		    max-width: 700px;
-	}
-
-		.doc {
-			background-color: white;
-		}
-
-	.modal-content, #caption {    
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-	}
-
-	
-		@-webkit-keyframes zoom {
-		    from {-webkit-transform:scale(0)} 
-		    to {-webkit-transform:scale(1)}
-	}
-
-		@keyframes zoom {
-		    from {transform:scale(0)} 
-		    to {transform:scale(1)}
-	}
-
-		.close {
-	  color: white;
-	  position: absolute;
-	  top: 10px;
-	  right: 25px;
-	  font-size: 35px;
-	  font-weight: bold;
-	}
-
-		.close:hover,
-		.close:focus {
-		  color: #999;
-		  text-decoration: none;
-		  cursor: pointer;
-	}
-
-
-</style>
 <body onkeydown="eventHandler(event);">
 	<div class="w3-top">
   		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
@@ -177,9 +103,11 @@
 	    </div>
   </div>
   <div id='window' class="modal">
-  		<span class="close cursor" onclick="closeWindow();">&times;</span>
   		<img  class="modal-content" src="" id='wide-image'>
-  		<div id='surround'></div>
+  		<div class="w3-center">
+  			 <button class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick='btnclick()' style="font-weight:900; margin-top: 20px;">MAKE STARTER
+  			 </button>
+  		</div>
   </div>
   <div id='documentation' class="modal">
   	<div class="w3-row w3-center">
@@ -203,8 +131,8 @@
   	</div>
   </div>
 </body>
-<script type="text/javascript" src="../scripts/gallery-control.js">
-</script>
+<script type="text/javascript" src="../scripts/controlling-functions.js"></script>
+<script type="text/javascript" src="../scripts/gallery-control.js"></script>
 
 
 </html>

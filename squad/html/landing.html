@@ -8,11 +8,10 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="../styles/response.css">
-		<link rel="stylesheet" type="text/css" href="https://fonts.google.com/specimen/Berkshire+Swash">
 		<link rel="stylesheet" type="text/css" href="../styles/landing.css">
 </head>
 <body>
-	<div class='back-image display-container animate-opacity text-white'>
+	<div class='back-image display-container animate-opacity text-white' id='theme'>
 		<div class="display-topleft padding-large xlarge"><i class="fa fa-align-justify menu"></i></div>
 		<div class="display-topright padding-large xlarge gal"><a href="gallery.html" style="color: tomato"><span>Gallery</span></a></div>
 		<div class="display-middle">
@@ -27,4 +26,13 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="../scripts/controlling-functions.js"></script>
+<script type="text/javascript">
+	var theme = retrieveCoookie('theme');
+	if (theme != null) {
+		var back = document.getElementById('theme');
+		console.log(back);
+		back.style.backgroundImage = 'url(' + "'" + theme.value + "'" + ')';
+	}
+</script>
 </html>
