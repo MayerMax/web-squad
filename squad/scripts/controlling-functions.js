@@ -1,3 +1,4 @@
+
 function createCookie(name, value, daysToExpire=3, path="/") {
 	// var d = new Date();
 	// d.setTime(d.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
@@ -19,4 +20,18 @@ function retrieveCoookie(name) {
 
 function deleteCookie(name) {
 	document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}
+
+
+
+function initHash(value) {
+	document.location.hash = value;
+}
+
+function getHash(value) {
+	return document.location.hash;	
+}
+
+function clearHash(value) {
+	document.location.hash = '';
 }

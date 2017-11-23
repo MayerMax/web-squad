@@ -28,7 +28,7 @@ img.hover-shadow {
 		    margin: auto;
 		    display: block;
 		    width: 80%;
-		    max-width: 700px;
+		    max-width: 1200px;
 	}
 
 	.doc {
@@ -67,4 +67,8 @@ img.hover-shadow {
 		  color: #999;
 		  text-decoration: none;
 		  cursor: pointer;
+	}
+
+	.spinner {
+		margin-top: 10px;
 	}

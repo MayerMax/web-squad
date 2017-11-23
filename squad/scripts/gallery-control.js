@@ -1,3 +1,18 @@
+
+function checkLoading() {
+	var loading_interval = setInterval(function(){
+	var items = document.getElementsByClassName('spinner');
+	for (var i = 0; i < items.length; i++){
+		var image = items[i];
+		image.setAttribute('src', image.getAttribute('data-src'));
+		image.style.width = '100%';
+		image.style.marginTop = '0px';
+	}
+	if (items.length == 0)
+		clearInterval(loading_interval);
+	}, 1000);
+}
+
 function Gallery() {
 	this.elements = document.getElementsByClassName('hover-shadow');
 
@@ -27,10 +42,10 @@ var view = false;
 var global_position = 0;
 init();
 
+
 function openWindow(event) {
   var pos = g.association[event.target.id];
   var imgObj = g.elements[pos];
-  //var neighbours = g.getNeighbours(pos);
   
   global_position = pos;
   view = true;  
@@ -38,6 +53,7 @@ function openWindow(event) {
 
   var wide = document.getElementById('wide-image');
   wide.src = imgObj.src;
+  initHash(global_position);
 
 }
 
@@ -88,6 +104,7 @@ function nextPicture(direction) {
 	var neighbours = g.getNeighbours(global_position);
 	var imgObj = direction > 0 ? neighbours[1] : neighbours[0];
 
+
 	var wide = document.getElementById('wide-image');
   	wide.src = imgObj.src;
 
@@ -96,6 +113,8 @@ function nextPicture(direction) {
   		global_position = g.elements.length -1;
   	if (global_position >= g.elements.length)
   		global_position = 0;
+
+  	initHash(global_position);
 }
 
 
@@ -132,4 +151,17 @@ function btnclick() {
 
 }
 
+window.onpopstate = function(event) {
+	var state = getHash();
+	if (state !== "" && !isNaN(state.substring(1))) {
+		var pos = parseInt(state.substring(1));
+		global_position = pos;
+		view = true;
+		var imgObj = g.elements[global_position];
+  		document.getElementById('window').style.display = "block";
+  		var wide = document.getElementById('wide-image');
+  		wide.src = imgObj.src;
+
+	}
+}
 
