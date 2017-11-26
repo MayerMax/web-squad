@@ -63,6 +63,7 @@ function openWindow(event) {
 }
 
 function eventHandler(event) {
+	event.preventDefault();
 	if (event.keyCode == 112 && !documentation) {
 		documentation = true;
 		actOnDocumentation(documentation);
@@ -131,7 +132,6 @@ function init() {
 		global_position = parseInt(photoCache.value);
 		view = true;
 		loadHighQuality(global_position);
-  		// needs image loading effect
 	}
 }
 
@@ -161,12 +161,21 @@ window.onpopstate = function(event) {
 		global_position = pos;
 		view = true;
 		loadHighQuality(global_position);
+		return;
+	}
+
+	if (state == '') {
+		document.getElementById('window').style.display = "none";
 	}
 }
 
+//TODO убрать якорь
 
 function loadHighQuality(idx) {
   var path = g.paths[idx];
+  var state = checkShowImmediately(idx);
+  if (state)
+  	return;
 
   document.getElementById('window').style.display = "block";
   document.getElementById('ld').style.display = 'block';
@@ -180,14 +189,15 @@ function loadHighQuality(idx) {
   		g.max_views[idx] = new Image();
   		g.max_views[idx].src = path;
   }
+
   var load_int = setInterval(
   	function() {
   		if (g.max_views[idx].complete == true) {
-  			var wide = document.getElementById('wide-image');
   			wide.src = g.max_views[idx].src;
   			document.getElementById('ld').style.display = 'none';
-  			wide = document.getElementById('wide-image').style.display = 'block';
+  			wide.style.display = 'block'; 
   			button.style.visibility = 'visible';
+  			smartPreloader(idx);
   			clearInterval(load_int);
   		}
   	}, 500
@@ -195,3 +205,32 @@ function loadHighQuality(idx) {
 
 }
 
+function checkShowImmediately(idx) {
+	if (g.max_views[idx] == null)
+		return false;
+	var pic = g.max_views[idx]
+	if (pic.complete == false || pic.naturalHeight == 0)
+		return false;
+
+	document.getElementById('ld').style.display = 'none';
+	var wide = document.getElementById('wide-image');
+	wide.src = pic.src;
+	document.getElementById('window').style.display = "block";
+	wide.style.display = 'block';
+	smartPreloader(idx);
+	return true;
+
+}
+
+function smartPreloader(curr_loading_idx) {
+	var next = curr_loading_idx += 1;
+	next = next >= g.elements.length ? 0 : next;
+	if (next < 0)
+		return;
+	if (g.max_views[next] == null) {
+		var path = g.paths[next];
+		g.max_views[next] = new Image();
+		g.max_views[next].src = path;
+	}
+	
+}
