@@ -5,13 +5,13 @@ from cork import Cork, AuthException
 
 
 from db.alchemy import Alchemy
-
+from db.data import User
 
 alchemy = Alchemy(path='db/data.db')
 
 
 aaa = Cork('us', email_sender='endurancemayer@gmail.com',
-           smtp_url='smtp.server')
+           smtp_url='starttls://{}:{}@smtp.gmail.com:587'.format('endurancemayer@gmail.com', 'jailDrogba112Haz'))
 
 app = bottle.app()
 
@@ -65,12 +65,13 @@ def do_auth():
     email = request.forms.get('email_start')
 
     if username and password and email:
-        aaa.register(username, password, email, email_template='static/registration_temp.tpl')
-        user = User(login=username, password=password, email=email)
-        session.add(user)
-        session.commit()
-
-        return 'Watch mail'
+        if alchemy.is_free_log_email(username, email):
+            aaa.register(username, password, email, email_template='static/registration_temp.tpl')
+            user = User(login=username, password=password, email=email)
+            session = alchemy.get_session()
+            session.add(user)
+            session.commit()
+            return 'Watch email'
 
     return template('static/html/landing.html')
 

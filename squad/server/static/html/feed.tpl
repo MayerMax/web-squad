@@ -19,7 +19,6 @@
     		</div>
   		</div>
 	</div>
-
 	%for post in posts:
 		<div class="w3-row" style="margin-top: 100px;">
 			<div class="w3-col s2 w3-center"><p> </p></div>
@@ -36,8 +35,8 @@
 					</div>
 					<div class="w3-container comments">
 						<p> Left: 0 comments</p>
-						<button id="show">Show Discussion</button>
-						<button id="hide">Hide Discussion</button>
+						<button onclick="show(event)">Show Discussion</button>
+						<button  onclick="hide(event)">Hide Discussion</button>
 						<div class="w3-container comments-content">
 							<ul class="w3-ul w3-margin-bottom w3-hoverable">
 								<li>
@@ -60,13 +59,17 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-    $("#hide").click(function(){
-        $(".comments-content").hide(500);
-    });
-    $("#show").click(function(){
-        $(".comments-content").show(500);
-    });
-});
+function show(event) {
+		var parent = event.target.parentElement;
+		var child = parent.getElementsByClassName('comments-content')[0];
+		$(child).show(500);
+	}
+
+	function hide(event) {
+		var parent = event.target.parentElement;
+		var child = parent.getElementsByClassName('comments-content')[0];
+		$(child).hide(500);
+	};
+
 </script>
 </html>
