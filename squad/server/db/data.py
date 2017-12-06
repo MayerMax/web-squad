@@ -80,6 +80,3 @@ class Comment(Base):
 
     def __repr__(self):
         return '{}'.format(self.date)
-
-
-

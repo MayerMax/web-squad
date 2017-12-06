@@ -3,13 +3,15 @@ from beaker.middleware import SessionMiddleware
 from bottle import route, request, error, response, template, post, get, run, static_file
 from cork import Cork, AuthException
 
+from db import login as LOGIN, password as PASSWORD
 from db.alchemy import Alchemy
 from db.data import User
+from side.safeescaper import SafeEscape
 
 alchemy = Alchemy(path='db/data.db')
 
 aaa = Cork('us', email_sender='endurancemayer@gmail.com',
-           smtp_url='starttls://{}:{}@smtp.gmail.com:587'.format('email', 'password'))
+           smtp_url='starttls://{}:{}@smtp.gmail.com:587'.format(LOGIN, PASSWORD))
 
 app = bottle.app()
 
@@ -36,9 +38,13 @@ def feed():
     posts = alchemy.get_posts(100)
     for i in range(0, len(posts)):
         back = alchemy.get_post_comments(posts[i][0])
+        for comment in back:
+            editions = alchemy.get_editions(comment[0], user.username)
+            comment.append(editions)
         posts[i].append(back)
+    s = SafeEscape()
 
-    return template('static/html/feed.tpl', name=user.username, posts=posts)
+    return s(template('static/html/feed.tpl', name=user.username, posts=posts))
 
 
 @route('/:thread<:re:[0-9]*>', method='POST')
@@ -46,9 +52,20 @@ def leave_comment(thread):
     aaa.require(fail_redirect='/login')
     post_id = int(thread.replace('thread', ''))
     content = request.forms.get('comment')
-    print(content)
+
     cur_user = aaa.current_user.username
     alchemy.add_comment(post_id, cur_user, content)
+    return bottle.redirect('/')
+
+
+@route('/:comment<:re:[0-9]*>', method='POST')
+def make_comment_edition(comment):
+    aaa.require(fail_redirect='/login')
+    comment_id = int(comment.replace('comment', ''))
+    content = request.forms.get('edition')
+
+    cur_user = aaa.current_user.username
+    alchemy.make_edition(comment_id, cur_user, content)
     return bottle.redirect('/')
 
 
