@@ -1,6 +1,7 @@
 from typing import Tuple, List
 
-from sqlalchemy import create_engine, or_
+import datetime
+from sqlalchemy import create_engine, or_, desc, asc
 from sqlalchemy.orm import sessionmaker
 
 from db.data import Base, User, Post, Comment, Editions
@@ -27,7 +28,7 @@ class Alchemy:
 
         posts = []
         for post in results[0:count]:
-            posts.append([post.title, post.text, post.image_path])
+            posts.append([post.id, post.title, post.text, post.image_path])
 
         return posts
 
@@ -38,11 +39,26 @@ class Alchemy:
             return False
         return True
 
+    def get_post_comments(self, post_id):
+        comments = self.__session.query(Comment).filter(Comment.post_id == post_id).order_by(desc(Comment.date)).all()
+        coms = []
+        for comment in comments:
+            coms.append([
+                comment.date,
+                comment.text,
+                self.__session.query(User).filter(User.id == comment.user_id).all()[0].login
+            ])
+        return coms
+
+    def add_comment(self, post_id, user, text):
+        user_id = self.__session.query(User).filter(User.login == user).one().id
+        c = Comment(date=datetime.datetime.utcnow(), post_id=post_id, user_id=user_id, text=text)
+
+        self.__session.add(c)
+        self.__session.commit()
+
 
 if __name__ == '__main__':
     a = Alchemy('data.db')
-    p = a.get_session().query(User).filter(User.login == 'Max').all()[0]
-    # a.get_session().delete(p)
-    # a.get_session().commit()
-    print(p)
-    print(a.is_free_log_email('Max', 'endurancemayer@yandex.ru'))
+    a.get_session().query(Comment).delete()
+    a.get_session().commit()

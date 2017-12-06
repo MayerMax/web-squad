@@ -3,15 +3,13 @@ from beaker.middleware import SessionMiddleware
 from bottle import route, request, error, response, template, post, get, run, static_file
 from cork import Cork, AuthException
 
-
 from db.alchemy import Alchemy
 from db.data import User
 
 alchemy = Alchemy(path='db/data.db')
 
-
 aaa = Cork('us', email_sender='endurancemayer@gmail.com',
-           smtp_url='starttls://{}:{}@smtp.gmail.com:587'.format('endurancemayer@gmail.com', 'jailDrogba112Haz'))
+           smtp_url='starttls://{}:{}@smtp.gmail.com:587'.format('email', 'password'))
 
 app = bottle.app()
 
@@ -36,8 +34,22 @@ def feed():
     aaa.require(fail_redirect='/login')
     user = aaa.current_user
     posts = alchemy.get_posts(100)
+    for i in range(0, len(posts)):
+        back = alchemy.get_post_comments(posts[i][0])
+        posts[i].append(back)
 
     return template('static/html/feed.tpl', name=user.username, posts=posts)
+
+
+@route('/:thread<:re:[0-9]*>', method='POST')
+def leave_comment(thread):
+    aaa.require(fail_redirect='/login')
+    post_id = int(thread.replace('thread', ''))
+    content = request.forms.get('comment')
+    print(content)
+    cur_user = aaa.current_user.username
+    alchemy.add_comment(post_id, cur_user, content)
+    return bottle.redirect('/')
 
 
 @route('/validate_registration/<registration_code>')

@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../styles/feed.css">
 </head>
 
 <body>
@@ -24,31 +25,36 @@
 			<div class="w3-col s2 w3-center"><p> </p></div>
 			<div class="w3-col s8">
 				<div class="w3-card">
-					<img src="{{post[2]}}", width="100%">
+					<img src="{{post[3]}}", width="100%">
 					<div class="w3-container title">
 						<div class="w3-indigo">
-							<h3>{{post[0]}}</h3>
+							<h3>{{post[1]}}</h3>
 						</div>
 					</div>
 					<div class="w3-container text">
-						<p>{{post[1]}}</p>
+						<p>{{post[2]}}</p>
 					</div>
 					<div class="w3-container comments">
-						<p> Left: 0 comments</p>
 						<button onclick="show(event)">Show Discussion</button>
 						<button  onclick="hide(event)">Hide Discussion</button>
+						
 						<div class="w3-container comments-content">
 							<ul class="w3-ul w3-margin-bottom w3-hoverable">
-								<li>
-									<div class="w3-right">0<i class="fa fa-heart" aria-hidden="true"></i>0<i class="fa fa-pencil" aria-hidden="true"></i></div>
-									<p>He Said</p>
-									<p>Классная статья, понравилось!</p>
-								</li>
-								<li>
-									<p>He Said</p>
-									<p>Норм!</p>
-								</li>
+								%for comment in post[4]:
+
+									<li>
+										<div class="w3-right">0<i class="fa fa-heart" aria-hidden="true"></i>0<i class="fa fa-pencil" aria-hidden="true"></i></div>
+										<p>{{comment[2]}} said:</p> <span> at {{comment[0]}}</span>
+										<p>{{comment[1]}}</p>
+									</li>
+								%end
 							</ul>
+							<div class="leave-comment">
+								<form action="/thread{{post[0]}}" method="POST">
+									<textarea rows="4" cols="50" name="comment">{{name}}, Leave a reply...</textarea>
+									<input value='Send' type="submit" name="comm" >
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -70,6 +76,10 @@ function show(event) {
 		var child = parent.getElementsByClassName('comments-content')[0];
 		$(child).hide(500);
 	};
+
+	function convert(event) {
+		event.target.textarea.value = unescape(encodeURIComponent(event.target.textarea.value));
+	}
 
 </script>
 </html>

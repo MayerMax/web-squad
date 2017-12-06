@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, create_engine
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -52,7 +52,7 @@ class Editions(Base):
     comment_id = Column(Integer, ForeignKey('comment.id'))
 
     text = Column(String)
-    date = Column(Date)
+    date = Column(DateTime(timezone=True))
 
     def __init__(self, post_id, user_id, comment_id, text, date):
         self.post_id = post_id
@@ -68,6 +68,18 @@ class Comment(Base):
     post_id = Column(Integer, ForeignKey('post.id'))  # foreign key
     user_id = Column(Integer, ForeignKey('user.id'))  # foreign key
     text = Column(String)
-    date = Column(Date)
+    date = Column(DateTime(timezone=True))
 
     post = relationship(Post)
+
+    def __init__(self, post_id, user_id, text, date):
+        self.post_id = post_id
+        self.user_id = user_id
+        self.text = text
+        self.date = date
+
+    def __repr__(self):
+        return '{}'.format(self.date)
+
+
+
