@@ -47,7 +47,7 @@ def feed():
     return s(template('static/html/feed.tpl', name=user.username, posts=posts))
 
 
-@route('/:thread<:re:[0-9]*>', method='POST')
+@route('/thr/<thread>', method='POST')
 def leave_comment(thread):
     aaa.require(fail_redirect='/login')
     post_id = int(thread.replace('thread', ''))
@@ -58,7 +58,7 @@ def leave_comment(thread):
     return bottle.redirect('/')
 
 
-@route('/:comment<:re:[0-9]*>', method='POST')
+@route('/com/<comment>', method='POST')
 def make_comment_edition(comment):
     aaa.require(fail_redirect='/login')
     comment_id = int(comment.replace('comment', ''))
@@ -117,6 +117,11 @@ def login_static():
 @route('/error')
 def callback():
     return 'Hello, error happend!'
+
+
+@route('/<:identity[0-9]*>')
+def smple():
+    return 'Here'
 
 
 def main():

@@ -80,7 +80,7 @@
 														%end
 													</ul>
 													<p>Edit Last Comment</p>
-													<form action="/comment{{comment[0]}}" method="post">
+													<form action="/com/comment{{comment[0]}}" method="post">
 														<textarea rows="4" cols="50" name="edition"> {{comment[2]}}</textarea>
 														<input value='Send' type="submit" name="comm">
 													</form>
@@ -93,7 +93,7 @@
 								%end
 							</ul>
 							<div class="leave-comment">
-								<form action="/thread{{post[0]}}" method="POST">
+								<form action="/thr/thread{{post[0]}}" method="POST">
 									<textarea rows="4" cols="50" name="comment" placeholder="{{name}} Leave a reply..."></textarea>
 									<input value='Send' type="submit" name="comm" >
 								</form>

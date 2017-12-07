@@ -76,7 +76,6 @@ class Alchemy:
         post_id = comment.post_id
 
         e = Editions(comment_id=comment.id, date=comment.date, post_id=post_id, text=comment.text, user_id=user_id)
-        comment.date = datetime.datetime.utcnow()
         comment.text = content
 
         self.__session.add(e)
