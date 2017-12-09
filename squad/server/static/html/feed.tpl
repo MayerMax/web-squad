@@ -34,7 +34,7 @@
 	</style>
 </head>
 
-<body onkeydown="close_windows(event)">
+<body onkeydown="close_windows(event)" onload="style_images()">
 	<div class="w3-top">
   		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
     		<a href="/" class="w3-bar-item w3-button"><b> Squad Feed </b>{{name}}</a>
@@ -85,7 +85,7 @@
 														%end
 													</ul>
 													<p>Edit Last Comment</p>
-													<form action="/com/comment{{comment[0]}}" method="post">
+													<form action="/com/comment{{comment[0]}}" method="post" enctype="multipart/form-data">
 														<textarea rows="4" cols="50" name="edition"> {{comment[2]}}</textarea>
 														<input value='Send' type="submit" name="comm">
 													</form>
@@ -98,7 +98,7 @@
 								%end
 							</ul>
 							<div class="leave-comment">
-								<form action="/thr/thread{{post[0]}}" method="POST">
+								<form action="/thr/thread{{post[0]}}" method="POST" enctype="multipart/form-data">
 									<textarea rows="4" cols="50" name="comment" placeholder="{{name}} Leave a reply..."></textarea>
 									<input value='Send' type="submit" name="comm" >
 								</form>
@@ -142,6 +142,12 @@ function show(event) {
 		for (var i=0; i < modals.length; i++)
 			modals[i].style.display = 'none';
 		}
+	}
+
+	function style_images()  {
+		$('p img').css('width: 100%');
+		$('p img').prop("alt", "Player");
+		$('p img').wrap('<div class="w3-card" style="max-height: 400px; max-width: 400px;"></div>')
 	}
 
 </script>

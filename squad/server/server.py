@@ -130,6 +130,7 @@ def login_static():
         if not visited:
             bottle.response.set_cookie('visit', 'yes', path='/',
                                        expires=datetime.datetime.now() + datetime.timedelta(minutes=30))
+            print(bottle.response)
             alchemy.update_visits()
 
         return template('static/html/landing.html',

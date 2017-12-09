@@ -46,7 +46,7 @@ class Alchemy:
             return self.__session.query(Visits).filter(Visits.unique > 0).count()
 
         return len([i for i in self.__session.query(Visits)
-                    if datetime.datetime.now() - i.date <= datetime.timedelta(days=1) and i.unique > 0])
+                    if datetime.datetime.now().day == i.date.day  and i.unique > 0])
 
     def get_visits_user(self, login):
         return self.__session.query(Visits).filter(and_(Visits.user_login == login, Visits.unique > 0)).all()
@@ -117,7 +117,8 @@ class Alchemy:
 
 if __name__ == '__main__':
     a = Alchemy('data.db')
-    print(a.get_visits_count())
+    a.get_session().query(Comment).delete()
+    a.get_session().commit()
     # for i in s:
     #     print(i.date)
 

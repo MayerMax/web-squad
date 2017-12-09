@@ -58,7 +58,8 @@
 				<div class="w3-card">
 					<ul class="w3-ul w3-margin-bottom">
 						%for idx,  vis in enumerate(visits, start=1):
-						<p>{{idx}}. {{vis.date.strftime("%Y-%m-%d %H:%M")}}</p>
+							<p>{{idx}}. {{vis.date.strftime("%Y-%m-%d %H:%M")}}</p>
+						%end
 					</ul>
 				</div>
 			</div>
