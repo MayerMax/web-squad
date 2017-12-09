@@ -159,6 +159,32 @@ button a, button a:hover {
   color: red;
 }
 
+.stat-left, .stat-browser {
+  position: absolute;
+  margin: auto;
+  top: 0; left: 0; bottom: 0; right: 70%;
+  height: 500px;
+  width: 400px;
+  background: rgba(3,3,3,.7);
+  overflow: hidden;
+
+}
+
+.stat-browser {
+
+  top: 0; left: 70%; bottom: 0; right: 0;
+
+}
+
+ul li {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+ul li p {
+  font-size: 20px;
+}
+
 .mobile-screen{
   position: absolute;
   margin: auto;
@@ -312,3 +338,14 @@ a{
   margin: auto;
   background: rgba(255,255,255,.5);
 }
+
+
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+

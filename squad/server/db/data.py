@@ -80,3 +80,26 @@ class Comment(Base):
 
     def __repr__(self):
         return '{}'.format(self.date)
+
+
+class Visits(Base):
+    __tablename__ = 'visits'
+    id = Column(Integer, primary_key=True)
+    user_login = Column(String)  # login can divide users in 2 groups: anonymous and logged.
+    activity = Column(String)
+    date = Column(DateTime)
+    unique = Column(Integer)
+
+    def __init__(self, user_login, activity, date, unique):
+        self.user_login = user_login
+        self.activity = activity
+        self.date = date
+        self.unique = unique
+
+    def __repr__(self):
+        return '{}, {}'.format(self.user_login, self.activity)
+
+
+
+# engine = create_engine('sqlite:///data.db')
+# Visits.__table__.create(engine)

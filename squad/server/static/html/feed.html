@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>feed</title>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="../resources/manager.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../styles/feed.css">
+	<style type="text/css">
+				.modal {
+		    display: none; /* Hidden by default */
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    padding-top: 100px; /* Location of the box */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */
+		    background-color: rgb(0,0,0); /* Fallback color */
+		    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+	}
+
+	.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+	</style>
+</head>
+
+<body onkeydown="close_windows(event)">
+	<div class="w3-top">
+  		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    		<a href="profile.html" class="w3-bar-item w3-button"><b> Squad Feed </b>Max</a>
+    		<div class="w3-right w3-hide-small">
+      			<!-- <a href="#" class="w3-bar-item w3-button w3-red">Personal Room</a> -->
+      			<button class="w3-btn w3-yellow w3-hover-light-grey" formaction="/logout">Log Out</button>
+    		</div>
+  		</div>
+	</div>
+		<div class="w3-row" style="margin-top: 100px;">
+			<div class="w3-col s2 w3-center"><p> </p></div>
+			<div class="w3-col s8">
+				<div class="w3-card">
+					<img src="../resources/hazard-gal.jpg", width="100%">
+					<div class="w3-container title">
+						<div class="w3-indigo">
+							<h3>Hazard is back</h3>
+						</div>
+					</div>
+					<div class="w3-container text">
+						<p>Если в матче против &quot;Суонси&quot; посреди недели Антонио Конте играл по схеме 3-4-2-1, то в этот раз он сделал 
+        выбор в пользу расстановки 3-5-2. Таким образом, Азар оказался в центре, на позиции, которая предоставляет 
+        ему свободу передвижений в атакующей трети поля и возможность легче найти пространство между линиями. И он 
+        блестяще справлялся с этой задачей на протяжении всей игры.</p>
+					</div>
+					<div class="w3-container comments">
+						<button onclick="show(event)">Show Discussion</button>
+						<button  onclick="hide(event)">Hide Discussion</button>
+						
+						<div class="w3-container comments-content">
+							<ul class="w3-ul w3-margin-bottom w3-hoverable">
+									<li>
+										<div class="w3-right">
+											<i class="fa fa-pencil" onclick="show_editions(event)"></i>
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+															<li>
+																<p>You said at 2017-12-06 00:09:27.270890</p>
+																<p>Not that much</p>
+															</li>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment2" method="post">
+														<textarea rows="4" cols="50" name="edition"> I hate Bottle framework</textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Max said:</p> <span> at 2017-12-07 08:31:57.299663</span>
+										<p>I hate Bottle framework
+											<div class="w3-card" style="max-height: 400px; max-width: 400px;">
+												<img src="../resources/hazard-gal.jpg" width="100%">
+											</div>
+										</p>
+									</li>
+									<li>
+										<div class="w3-right">
+											<i class="fa fa-pencil" onclick="show_editions(event)"></i>
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+															<li>
+																<p>You said at 2017-12-07 08:30:31.234452</p>
+																<p>check 123</p>
+															</li>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment9" method="post">
+														<textarea rows="4" cols="50" name="edition"> modify</textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Max said:</p> <span> at 2017-12-07 08:31:34.773627</span>
+										<p>modify</p>
+									</li>
+									<li>
+										<div class="w3-right">
+											<i class="fa fa-pencil" onclick="show_editions(event)"></i>
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment8" method="post">
+														<textarea rows="4" cols="50" name="edition"> dsd</textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Max said:</p> <span> at 2017-12-07 07:44:49.727246</span>
+										<p>dsd</p>
+									</li>
+									<li>
+										<div class="w3-right">
+											<i class="fa fa-pencil" onclick="show_editions(event)"></i>
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment5" method="post">
+														<textarea rows="4" cols="50" name="edition"> Ok, but how about <i>Isco?</i></textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Max said:</p> <span> at 2017-12-06 14:39:03.869279</span>
+										<p>Ok, but how about <i>Isco?</i></p>
+									</li>
+									<li>
+										<div class="w3-right">
+											
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment4" method="post">
+														<textarea rows="4" cols="50" name="edition"> Feels like a glory!</textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Shaposhnikov said:</p> <span> at 2017-12-06 10:47:50.758557</span>
+										<p>Feels like a glory!</p>
+									</li>
+									<li>
+										<div class="w3-right">
+											<i class="fa fa-pencil" onclick="show_editions(event)"></i>
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+															<li>
+																<p>You said at 2017-12-06 00:08:56.698997</p>
+																<p>Cool!</p>
+															</li>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment1" method="post">
+														<textarea rows="4" cols="50" name="edition"> Not that Cool!</textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Max said:</p> <span> at 2017-12-06 00:08:56.698997</span>
+										<p>Not that Cool!</p>
+									</li>
+							</ul>
+							<div class="leave-comment">
+								<form action="/thr/thread1" method="POST">
+									<textarea rows="4" cols="50" name="comment" placeholder="Max Leave a reply..."></textarea>
+									<input value='Send' type="submit" name="comm" >
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="w3-col s2 w3-center"><p> </p></div>
+		</div>
+		<div class="w3-row" style="margin-top: 100px;">
+			<div class="w3-col s2 w3-center"><p> </p></div>
+			<div class="w3-col s8">
+				<div class="w3-card">
+					<img src="../resources/isco-gal.jpg", width="100%">
+					<div class="w3-container title">
+						<div class="w3-indigo">
+							<h3>Isco plays perfect</h3>
+						</div>
+					</div>
+					<div class="w3-container text">
+						<p>Очередной тур испанской Ла Лиги и очередная потеря очков 
+        Мадридского Реала, которому не удалось на «Сан-Мамес» победить Атлетик из Бильбао. Отрыв от Барселоны остался 
+        прежним, из-за ничьи каталонцев. Однако Мадрид пропустил вперед Атлетико, и теперь делит 4-5 место с 
+        Севильей, с которой сливочным играть через неделю.</p>
+					</div>
+					<div class="w3-container comments">
+						<button onclick="show(event)">Show Discussion</button>
+						<button  onclick="hide(event)">Hide Discussion</button>
+						
+						<div class="w3-container comments-content">
+							<ul class="w3-ul w3-margin-bottom w3-hoverable">
+									<li>
+										<div class="w3-right">
+											<i class="fa fa-pencil" onclick="show_editions(event)"></i>
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+															<li>
+																<p>You said at 2017-12-06 16:29:46.132491</p>
+																<p>Lets test <strong>strong</strong>, <b>b</b> and     <em>em</em></p>
+															</li>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment6" method="post">
+														<textarea rows="4" cols="50" name="edition"> Love <i>Leo</i> :)</textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Max said:</p> <span> at 2017-12-07 07:31:10.753235</span>
+										<p>Love <i>Leo</i> :)</p>
+									</li>
+									<li>
+										<div class="w3-right">
+											<i class="fa fa-pencil" onclick="show_editions(event)"></i>
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+															<li>
+																<p>You said at 2017-12-06 00:09:51.751563</p>
+																<p>Isco is perfect!</p>
+															</li>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment3" method="post">
+														<textarea rows="4" cols="50" name="edition"> Isco is not so perfect, haha!<br><em>LOL</em></textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Max said:</p> <span> at 2017-12-06 21:27:57.173719</span>
+										<p>Isco is not so perfect, haha!<br><em>LOL</em></p>
+									</li>
+									<li>
+										<div class="w3-right">
+											<i class="fa fa-pencil" onclick="show_editions(event)"></i>
+											<div class="modal">
+												<div class="modal-content">
+													<ul class="w3-ul w3-margin-bottom w3-hoverable">
+														<h3 style="text-align: center;">Ваши правки к данному комментарию !</h3>
+															<li>
+																<p>You said at 2017-12-06 21:25:42.933375</p>
+																<p>Change</p>
+															</li>
+															<li>
+																<p>You said at 2017-12-06 16:31:02.043169</p>
+																<p>How about it?<br>huh?</p>
+															</li>
+													</ul>
+													<p>Edit Last Comment</p>
+													<form action="/com/comment7" method="post">
+														<textarea rows="4" cols="50" name="edition"> Sorry, i miss some ideas :)</textarea>
+														<input value='Send' type="submit" name="comm">
+													</form>
+												</div>
+											</div>
+										</div>
+										<p>Max said:</p> <span> at 2017-12-06 21:27:06.738223</span>
+										<p>Sorry, i miss some ideas :)</p>
+									</li>
+							</ul>
+							<div class="leave-comment">
+								<form action="/thr/thread2" method="POST">
+									<textarea rows="4" cols="50" name="comment" placeholder="Max Leave a reply..."></textarea>
+									<input value='Send' type="submit" name="comm" >
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="w3-col s2 w3-center"><p> </p></div>
+		</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+function show(event) {
+		var parent = event.target.parentElement;
+		var child = parent.getElementsByClassName('comments-content')[0];
+		$(child).show(500);
+	}
+
+	function hide(event) {
+		var parent = event.target.parentElement;
+		var child = parent.getElementsByClassName('comments-content')[0];
+		$(child).hide(500);
+	};
+
+	function convert(event) {
+		event.target.textarea.value = unescape(encodeURIComponent(event.target.textarea.value));
+	}
+
+	function show_editions(event) {
+		event.target.nextElementSibling.style.display = 'block';
+	}
+
+	function close_windows(event) {
+		var modals = document.getElementsByClassName('modal');
+		console.log(1);
+		if (event.keyCode == 27) {
+		for (var i=0; i < modals.length; i++)
+			modals[i].style.display = 'none';
+		}
+	}
+
+</script>
+</html>

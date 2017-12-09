@@ -37,10 +37,15 @@
 <body onkeydown="close_windows(event)">
 	<div class="w3-top">
   		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
-    		<a href="profile.html" class="w3-bar-item w3-button"><b> Squad Feed </b>{{name}}</a>
+    		<a href="/" class="w3-bar-item w3-button"><b> Squad Feed </b>{{name}}</a>
     		<div class="w3-right w3-hide-small">
-      			<a href="#" class="w3-bar-item w3-button w3-red">Personal Room</a>
-      			<a href="gallery.html" class="w3-bar-item w3-button">Gallery</a>
+    			<form style="display: inline-block;" action="/stat" method="GET">
+    				<button class="w3-btn w3-green w3-hover-light-grey" type="submit">Statistics</button>
+    			</form>
+    			<form style="display: inline-block;" action="/logout" method="GET">
+    				<button class="w3-btn w3-yellow w3-hover-light-grey" type="submit">Log Out</button>
+    			</form>
+      			
     		</div>
   		</div>
 	</div>
@@ -87,7 +92,7 @@
 												</div>
 											</div>
 										</div>
-										<p>{{comment[3]}} said:</p> <span> at {{comment[1]}}</span>
+										<p>{{comment[3]}} said at {{comment[1]}}:</p>
 										<p>{{comment[2]}}</p>
 									</li>
 								%end

@@ -1,12 +1,15 @@
 import bottle
+import datetime
+import httpagentparser
 from beaker.middleware import SessionMiddleware
-from bottle import route, request, error, response, template, post, get, run, static_file
+from bottle import route, request, error, template, static_file
 from cork import Cork, AuthException
 
-from db import login as LOGIN, password as PASSWORD
+from db import login as LOGIN, password as PASSWORD, update_counter as upd, load_counter as lc
 from db.alchemy import Alchemy
 from db.data import User
 from side.safeescaper import SafeEscape
+from side.counters import convert_counter_in_html
 
 alchemy = Alchemy(path='db/data.db')
 
@@ -14,6 +17,8 @@ aaa = Cork('us', email_sender='endurancemayer@gmail.com',
            smtp_url='starttls://{}:{}@smtp.gmail.com:587'.format(LOGIN, PASSWORD))
 
 app = bottle.app()
+
+Counter = lc()
 
 session_opts = {
     'session.cookie_expires': True,
@@ -36,6 +41,8 @@ def feed():
     aaa.require(fail_redirect='/login')
     user = aaa.current_user
     posts = alchemy.get_posts(100)
+    alchemy.update_visits(user.username, 'Зашел на главную страницу')
+
     for i in range(0, len(posts)):
         back = alchemy.get_post_comments(posts[i][0])
         for comment in back:
@@ -55,6 +62,8 @@ def leave_comment(thread):
 
     cur_user = aaa.current_user.username
     alchemy.add_comment(post_id, cur_user, content)
+    alchemy.update_visits(cur_user, 'Оставил комментарий под постом {}'.format(post_id))
+
     return bottle.redirect('/')
 
 
@@ -66,6 +75,7 @@ def make_comment_edition(comment):
 
     cur_user = aaa.current_user.username
     alchemy.make_edition(comment_id, cur_user, content)
+    alchemy.update_visits(cur_user, 'Сделал правку под своим комментарием')
     return bottle.redirect('/')
 
 
@@ -82,6 +92,8 @@ def send_file(filename):
 
 @route('/login', method='POST')
 def do_auth():
+    global Counter
+    Counter += 1
     # user login
     log_us = request.forms.get('user', '')
     log_pass = request.forms.get('password', '')
@@ -107,21 +119,43 @@ def do_auth():
 
 @route('/login')
 def login_static():
+    global Counter
+    Counter += 1
     try:
-        user = aaa.current_user
+        _ = aaa.current_user
         return bottle.redirect('/')
     except AuthException as e:
-        return template('static/html/landing.html')
+        browser_info = httpagentparser.detect(request.environ.get('HTTP_USER_AGENT'))['browser']
+        visited = bottle.request.get_cookie('visit')
+        if not visited:
+            bottle.response.set_cookie('visit', 'yes', path='/',
+                                       expires=datetime.datetime.now() + datetime.timedelta(minutes=30))
+            alchemy.update_visits()
+
+        return template('static/html/landing.html',
+                        last_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+                        browser=browser_info.get('name'),
+                        version=browser_info.get('version'),
+                        size='',
+                        heat=convert_counter_in_html(str(Counter)),
+                        total_visits=convert_counter_in_html(str(alchemy.get_visits_count())),
+                        visits_today=convert_counter_in_html(str(alchemy.get_visits_count(True))))
 
 
-@route('/error')
-def callback():
-    return 'Hello, error happend!'
+@route('/logout')
+def logout():
+    aaa.require(fail_redirect='/login')
+    alchemy.update_visits(aaa.current_user.username, 'Вышел из профиля')
+    aaa.logout(success_redirect='/login')
 
 
-@route('/<:identity[0-9]*>')
-def smple():
-    return 'Here'
+@route('/stat')
+def statistics():
+    aaa.require(fail_redirect='login')
+    alchemy.update_visits(aaa.current_user.username, 'Перешел на страницу личной статистики')
+    stats = alchemy.get_stat(aaa.current_user.username)
+    visits = alchemy.get_visits_user(aaa.current_user.username)
+    return template('static/html/statistics.html', name=aaa.current_user.username, stat=stats, visits=visits)
 
 
 def main():
@@ -131,3 +165,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    upd(Counter)
