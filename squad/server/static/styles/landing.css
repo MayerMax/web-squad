@@ -1,0 +1,351 @@
+body, h1 {
+  font-family: 'Berkshire';
+}
+
+body, html {
+  height: 100%;
+}
+
+.back-image {
+  background-image: url('../resources/background.jpeg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+p {
+  font-size: 32px;
+}
+
+
+button {
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.btn-outline-secondary,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active,
+.btn-outline-secondary:visited,
+.btn-outline-secondary:focus {
+    color: gold;
+    border-color: gold !important;
+}
+
+.menu {
+  font-size: 50px;
+  color: gold;
+}
+
+
+button a, button a:hover {
+  color: gold;
+}
+
+.border-grey,.hover-border-grey:hover,.border-gray,.hover-border-gray:hover{border-color:#bbb!important}
+
+.info{color:#fff!important;background-color:tomato!important}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+}
+
+.footer a {
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 30px;
+  margin-left: 20px;
+}
+
+@media(min-width: 1800px) {
+  
+  .logo-man {
+    font-size: 150px;
+  }
+
+  .footer a {
+    font-size: 30px;
+  }
+
+  .menu {
+    font-size: 50px !important;
+  }
+
+  .gal {
+    font-size: 30px !important;
+  }
+
+  .button {
+    font-size: 23px !important;
+  }
+
+  h1 {
+    font-size: 76px;
+  }
+}
+
+
+@media(min-width: 2500px) {
+  .footer a {
+    font-size: 45px;
+  }
+
+  .menu {
+    font-size: 60px !important;
+  }
+
+  .gal {
+    font-size: 35px !important;
+  }
+
+  .button {
+    font-size: 30px !important;
+  }
+
+  h1 {
+    font-size: 86px;
+  }
+}
+
+
+@media(min-width: 3400px) {
+  .footer a {
+    font-size: 50px;
+  }
+
+  .menu {
+    font-size: 65px !important;
+  }
+
+  .gal {
+    font-size: 45px !important;
+  }
+
+  .button {
+    font-size: 35px !important;
+  }
+
+  h1 {
+    font-size: 92px;
+  }
+}
+
+
+/*input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}*/
+
+
+::selection {
+  background: rgba(255,255,255,.5);
+  color: #333;
+}
+::-moz-selection {
+  background: rgba(0,0,0,.5);
+  color: red;
+}
+
+.stat-left, .stat-browser {
+  position: absolute;
+  margin: auto;
+  top: 0; left: 0; bottom: 0; right: 70%;
+  height: 500px;
+  width: 400px;
+  background: rgba(3,3,3,.7);
+  overflow: hidden;
+
+}
+
+.stat-browser {
+
+  top: 0; left: 70%; bottom: 0; right: 0;
+
+}
+
+ul li {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+ul li p {
+  font-size: 20px;
+}
+
+.mobile-screen{
+  position: absolute;
+  margin: auto;
+  top: 0; left: 0; bottom: 0; right: 0;
+  width: 300px;
+  height: 500px;
+  background: rgba(3,3,3,.7);
+  overflow: hidden;
+}
+
+.header{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  background: rgba(3,3,3,.1);
+}
+
+h1{
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+  font-weight: 300;
+  font-size: 21px;
+  color: rgba(255,255,255,.5);
+}
+
+.logo{
+  position: relative;
+  top: 30px;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  background: url(https://s10.postimg.org/z6xqdowix/imageedit_1_8168502978.gif) no-repeat center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+form{
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+}
+
+input,
+.login-btn{
+  font-family: 'Open Sans', sans-serif;
+  position: relative;
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  width: 84%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+input{
+  border: none;
+  border-left: 5px solid;
+  background: none;
+  border-color: rgb(225, 40, 54);
+  color: #fff;
+  font-weight: 300;
+  font-size: 18px;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+input:focus{
+  outline: 0;
+  background: rgba(225, 40, 54,.2);
+  border-radius: 20px;
+  border-color: transparent;
+}
+
+a{
+  text-decoration: none;
+}
+
+.login-btn{
+  border-radius: 4px;
+  text-align: center;
+  background: rgb(225, 40, 54);
+  color: #fff;
+}
+
+.other-options{
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  bottom: 2px;
+  left: 0;
+}
+
+.option{
+  position: relative;
+  display: block;
+  float: right;
+  width: 45%;
+  margin: auto;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background: rgba(0,0,0,.2);
+  border-bottom: 2px solid  rgb(225, 40, 54);
+  cursor: pointer;
+}
+
+.option:first-child{
+  float: left;
+  left: 3.3%;
+}
+
+.option:last-child{
+  margin-right: 3.3%;
+}
+
+.option-text{
+  position: relative;
+  margin: 0;
+  line-height: 30px;
+  color: #ccc;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 100;
+}
+
+#fpass-form,
+#registration-form{
+  display: none;
+}
+
+/* Change colors container */
+.change-colors-container{
+  position: absolute;
+  height: 300px;
+  width: 50px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: rgba(255,255,255,.5);
+}
+
+
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+

@@ -1,0 +1,192 @@
+  <!DOCTYPE html>
+<html>
+<head>
+	<title>Into Page</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/png" href="../resources/manager.png"/>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="../styles/response.css">
+		<link rel="stylesheet" type="text/css" href="../styles/landing.css">
+    <style type="text/css">
+      
+      .digits {
+        height: 53px;
+        width: 30px;
+        display: block;
+        position: absolute;
+        margin: 0;
+        margin-left: 20px;
+        top: 0;
+        padding: 0;
+        list-style: 0;
+      }
+
+    </style>
+</head>
+<body>
+	<div class='back-image display-container animate-opacity text-white' id='theme'>
+		<div class="display-topleft padding-large xlarge"><i class="fa fa-align-justify menu"></i></div>
+		<div class="display-topright padding-large xlarge gal"><a href="../html/gallery.html" style="color: tomato"><span>Gallery</span></a></div>
+		<div style="text-align: center; font-size: 30px;"><p>Squad</p></div>
+
+  <div class="stat-left">
+    <div style="text-align: center;">
+      <h1>Статистика <i data-toggle="tooltip" data-placement="bottom" title="Для зарегистрированных пользователей в личном кабинете можно просмотреть развернутую информацию посещений и активности" class="fa fa-info-circle" aria-hidden="true"></i></h1>
+    </div>
+    
+    <ul class="w3-ul w3-margin-bottom w3-hoverable">
+      <li style="margin-top: 30px; margin-bottom: 30px;">
+        <p>Время последнего посещения:
+          <br>
+          <span>{{last_time}}</span>
+        </p>
+      </li>
+      <li style="margin-top: 30px;">
+        <span>Всего посещений:</span>
+        <div style="position: relative; top: -50px; left: 120px;">
+          <ul>
+            {{!total_visits}}
+          </ul>
+        </div>
+      </li>
+      <li style="margin-top:30px;">
+        <span>Посещений сегодня:</span>
+        <div style="position: relative; top: -50px; left: 120px;">
+            <ul>
+              {{!visits_today}}
+            </ul>
+        </div>
+      </li>
+      <li style="margin-top: 30px;">
+        <span>Всего heat-ов:</span>
+        <div style="position: relative;">
+          <ul>
+            {{!heat}}
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+  <div class="stat-browser">
+    <h1 style="text-align: center;">Информация о браузере</h1>
+    <ul class="w3-ul w3-margin-bottom w3-hoverable">
+      <li>Браузер: {{browser}}</li>
+      <li>Версия браузера: {{version}}</li>
+      <li id='resolution'>Разрешение экрана: {{size}}</li>
+    </ul>
+  </div>
+  <div class="mobile-screen">
+    <div class="header">
+      <h1>Log in <i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Регистрация открывает доступ к новостному форуму"></i></h1>
+    </div>
+    
+    <div class="logo"></div>
+    
+    <form id="registration-form" name='registration' action="/login" method="post">
+      <input type="text" name="user_start" placeholder="User Name">
+      <input type="password" name="password_start" placeholder="Password">
+      <input type="email" name="email_start" placeholder="Email">
+      <input value='Sign Up' type="submit">
+    </form>
+
+    <form id="login-form" name = 'log' action="/login" method="post">
+      <input type="text" name="user" placeholder="User Name">
+      <input type="password" name="password" placeholder="Password">
+      <input value='Login' type="submit">
+    </form>
+    
+    <form id="fpass-form">
+      <input type="text" name="forgotten" placeholder="E-mail or phone number">
+      <a href="#" class="login-btn" id="getpass-btn">Get Password</a>
+    </form>
+    
+    <div class="other-options">
+      <div class="option" id="newUser"><p class="option-text">New User</p></div>
+      <div class="option" id="fPass"><p class="option-text"> Forgotten password</p></div>
+    </div>
+</div>
+
+		<div class="footer">
+			<a href="https://github.com/MayerMax" target="_blank">Made by <span style="color:tomato">@Mayer</span></a>
+			<a href="mailto:endurancemayer@yandex.ru" target="_blank"><i class="fa fa-envelope" style="color: white"></i> email us</a>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../scripts/controlling-functions.js"></script>
+<script type="text/javascript">
+	var theme = retrieveCoookie('theme');
+	if (theme != null) {
+		var back = document.getElementById('theme');
+		back.style.backgroundImage = 'url(' + "'" + theme.value + "'" + ')';
+	}
+
+	String.prototype.hashCode = function() {
+    var hash = 0;
+    if (this.length == 0) {
+        return hash;
+    }
+    for (var i = 0; i < this.length; i++) {
+        char = this.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
+function convert() {
+	document.log.password.value = document.log.password.value.hashCode();
+	return true; 
+}
+
+$("#newUser").click(function(){
+  $("h1").text("Registration");
+  $(".logo").css({
+    "width":"120px",
+    "height":"120px",
+    "top":"10px"
+  });
+  $("#login-form").fadeOut(200);
+  $("#registration-form").delay(300).fadeIn(500);
+  $(".other-options").fadeOut(200);
+});
+
+$("#signup-btn,#getpass-btn").click(function(){
+  $("h1").text("Log in");
+  $(".logo").css({
+    "width":"150px",
+    "height":"150px",
+    "top":"30px"
+  });
+
+  $("#registration-form,#fpass-form").fadeOut(200);
+  $("#login-form").delay(300).fadeIn(500);
+  $(".other-options").fadeIn(300);
+});
+
+$("#fPass").click(function(){
+  $("h1").text("Forgotten password");
+  $(".logo").css({
+    "width":"190px",
+    "height":"190px",
+    "top":"40px"
+  });
+
+  $("#login-form").fadeOut(200);
+  $("#fpass-form").delay(300).fadeIn(500);
+  $(".other-options").fadeOut(200);
+});
+
+document.getElementById('resolution').textContent += " " + window.screen.width+"x"+window.screen.height + ' px';
+</script>
+<script>
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
+</html>
