@@ -18,7 +18,7 @@ class SafeEscape:
         for tag in self.SAFE_TAGS:
             string = re.sub('&lt;{}&gt;'.format(tag), '<{}>'.format(tag), string)
             string = re.sub('&lt;/{}&gt;'.format(tag), '</{}>'.format(tag), string)
-        print(self.image_wrapper(string.replace('\r\n', '<br>')))
+
 
         return self.image_wrapper(string.replace('\r\n', '<br>'))
 
@@ -33,4 +33,3 @@ class SafeEscape:
         return copy
 
 
-s = '&lt;img src=&#039;https://cdn.images.express.co.uk/img/dynamic/67/590x/real-madrid-s-isco-518426.jpg&#039;&gt;'

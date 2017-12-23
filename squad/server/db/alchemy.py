@@ -1,6 +1,9 @@
+from collections import OrderedDict
 from typing import Tuple, List
 
 import datetime
+
+from bottle import template
 from sqlalchemy import create_engine, or_, desc, asc, and_
 from sqlalchemy.orm import sessionmaker
 
@@ -24,9 +27,9 @@ class Alchemy:
     def update_visits(self, login='anonymous', activity='on main page'):
         unique = 1
         if login != 'anonymous':
-            last_activity = self.__session.query(Visits)\
-                .filter(Visits.user_login == login)\
-                .order_by(desc(Visits.date))\
+            last_activity = self.__session.query(Visits) \
+                .filter(Visits.user_login == login) \
+                .order_by(desc(Visits.date)) \
                 .all()
             if last_activity:
                 last_activity = last_activity[0]
@@ -46,7 +49,7 @@ class Alchemy:
             return self.__session.query(Visits).filter(Visits.unique > 0).count()
 
         return len([i for i in self.__session.query(Visits)
-                    if datetime.datetime.now().day == i.date.day  and i.unique > 0])
+                    if datetime.datetime.now().day == i.date.day and i.unique > 0])
 
     def get_visits_user(self, login):
         return self.__session.query(Visits).filter(and_(Visits.user_login == login, Visits.unique > 0)).all()
@@ -73,7 +76,7 @@ class Alchemy:
         return True
 
     def get_post_comments(self, post_id):
-        comments = self.__session.query(Comment).filter(Comment.post_id == post_id).order_by(desc(Comment.date)).all()
+        comments = self.__session.query(Comment).filter(Comment.post_id == post_id).all()
         coms = []
         for comment in comments:
             coms.append([
@@ -83,6 +86,23 @@ class Alchemy:
                 self.__session.query(User).filter(User.id == comment.user_id).all()[0].login
             ])
         return coms
+
+    def comments_updates(self, when, who):
+        comments = self.__session.query(Comment).filter(Comment.date >= when)
+        result = OrderedDict()
+        for com in comments:
+            user = self.__session.query(User).filter(User.id == com.user_id).one()
+            if who == user.login:
+                editions = self.get_editions(com.id, who)
+            else:
+                editions = None
+            if com.post_id in result:
+                result[com.post_id].append({'id': com.id, 'user': user.login, 'date': com.date.strftime("%Y-%m-%d %H:%M"),
+                                            'text': com.text, 'editions': editions})
+            else:
+                result[com.post_id] = [{'id': com.id, 'user': user.login, 'date': com.date.strftime("%Y-%m-%d %H:%M"),
+                                        'text': com.text, 'editions': editions}]
+        return result
 
     def add_comment(self, post_id, user, text):
         user_id = self.__session.query(User).filter(User.login == user).one().id
@@ -119,8 +139,3 @@ if __name__ == '__main__':
     a = Alchemy('data.db')
     a.get_session().query(Comment).delete()
     a.get_session().commit()
-    # for i in s:
-    #     print(i.date)
-
-    # print(datetime.datetime.now() - s[0].date <= datetime.timedelta(minutes=20))
-    # print(s[0].date)

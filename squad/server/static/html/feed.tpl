@@ -68,7 +68,7 @@
 						<button  onclick="hide(event)">Hide Discussion</button>
 						
 						<div class="w3-container comments-content">
-							<ul class="w3-ul w3-margin-bottom w3-hoverable">
+							<ul class="w3-ul w3-margin-bottom w3-hoverable sup">
 								%for comment in post[4]:
 									<li>
 										<div class="w3-right">
@@ -98,9 +98,9 @@
 								%end
 							</ul>
 							<div class="leave-comment">
-								<form action="/thr/thread{{post[0]}}" method="POST" enctype="multipart/form-data">
-									<textarea rows="4" cols="50" name="comment" placeholder="{{name}} Leave a reply..."></textarea>
-									<input value='Send' type="submit" name="comm" >
+								<!-- <form action="/thr/thread{{post[0]}}" method="POST" enctype="multipart/form-data"> -->
+									<textarea rows="4" cols="50" name="comment" placeholder="{{name}} Leave a reply..." style="display: block;"></textarea>
+									<button name="{{name}}" class="w3-btn w3-indigo w3-hover-light-grey" id='thread{{post[0]}}' type="submit" onclick="send(event)" style="margin-bottom: 15px;">Send</button>
 								</form>
 							</div>
 						</div>
@@ -112,8 +112,44 @@
 	%end 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../scripts/ajax.js"></script>
 <script type="text/javascript">
 
+function send(event) {
+	var textarea = event.target.previousElementSibling;
+	ajax.post('/thr/' + event.target.id, {comment: textarea.value}, 
+
+		function(response) {
+			textarea.value = '';
+			get_update();
+
+		})
+
+}
+
+
+function get_update() {
+	ajax.get('/upd', {}, function(response) {
+		var result = JSON.parse(response);
+		var posts = document.getElementsByClassName('sup');
+
+		keys = Object.keys(result)
+		console.log(keys);
+		for (var i = 0; i < keys.length; i++) {
+			var key = parseInt(keys[i]) - 1;
+			var post = posts[key];
+			if (post.children.length == 0) {
+				post.insertAdjacentHTML('beforeend', result[keys[i]])
+			}
+			else {
+			var last_comment = post.children[post.children.length - 1];
+			last_comment.insertAdjacentHTML('afterend', result[keys[i]])
+			}
+		}
+	})
+}
+
+setInterval(get_update, 10000);
 
 function show(event) {
 		var parent = event.target.parentElement;
@@ -137,7 +173,6 @@ function show(event) {
 
 	function close_windows(event) {
 		var modals = document.getElementsByClassName('modal');
-		console.log(1);
 		if (event.keyCode == 27) {
 		for (var i=0; i < modals.length; i++)
 			modals[i].style.display = 'none';

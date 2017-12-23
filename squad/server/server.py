@@ -1,3 +1,6 @@
+import json
+from collections import OrderedDict
+
 import bottle
 import datetime
 import httpagentparser
@@ -17,6 +20,7 @@ aaa = Cork('us', email_sender='endurancemayer@gmail.com',
            smtp_url='starttls://{}:{}@smtp.gmail.com:587'.format(LOGIN, PASSWORD))
 
 app = bottle.app()
+update_list = {}
 
 Counter = lc()
 
@@ -50,7 +54,7 @@ def feed():
             comment.append(editions)
         posts[i].append(back)
     s = SafeEscape()
-
+    update_list[user.username] = datetime.datetime.now()
     return s(template('static/html/feed.tpl', name=user.username, posts=posts))
 
 
@@ -64,8 +68,6 @@ def leave_comment(thread):
     alchemy.add_comment(post_id, cur_user, content)
     alchemy.update_visits(cur_user, 'Оставил комментарий под постом {}'.format(post_id))
 
-    return bottle.redirect('/')
-
 
 @route('/com/<comment>', method='POST')
 def make_comment_edition(comment):
@@ -77,6 +79,19 @@ def make_comment_edition(comment):
     alchemy.make_edition(comment_id, cur_user, content)
     alchemy.update_visits(cur_user, 'Сделал правку под своим комментарием')
     return bottle.redirect('/')
+
+
+@route('/upd')
+def get_comments_updates():
+    global update_list
+    aaa.require(fail_redirect='/login')
+    when = update_list[aaa.current_user.username]
+    new_comments = alchemy.comments_updates(when, aaa.current_user.username)
+    update_list[aaa.current_user.username] = datetime.datetime.now()
+    result = {post_num: template('static/html/comment_section.tpl', post= new_comments[post_num])
+              for post_num in new_comments}
+
+    return json.dumps(result)
 
 
 @route('/validate_registration/<registration_code>')
@@ -130,7 +145,7 @@ def login_static():
         if not visited:
             bottle.response.set_cookie('visit', 'yes', path='/',
                                        expires=datetime.datetime.now() + datetime.timedelta(minutes=30))
-            print(bottle.response)
+
             alchemy.update_visits()
 
         return template('static/html/landing.html',
