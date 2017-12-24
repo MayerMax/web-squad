@@ -45,7 +45,7 @@
     		<a href="/" class="w3-bar-item w3-button"><b> Squad Feed </b>{{name}}</a>
     		<div class="w3-right w3-hide-small">
     			<a id='xml' onclick="download_xml(event)">
-    				<span>Export Comments<i class="fa fa-download" aria-hidden="true"></i></span>
+    				<span>Запросить xml</span><i class="fa fa-download" aria-hidden="true"></i>
     			</a>
     			<form style="display: inline-block;" action="/stat" method="GET">
     				<button class="w3-btn w3-green w3-hover-light-grey" type="submit">Statistics</button>
@@ -122,6 +122,8 @@
 <script src="../scripts/ajax.js"></script>
 <script type="text/javascript">
 
+var is_asked = false;
+
 function send(event) {
 	var textarea = event.target.previousElementSibling;
 	ajax.post('/thr/' + event.target.id, {comment: textarea.value}, 
@@ -193,12 +195,23 @@ function show(event) {
 	}
 
 	function download_xml(event) {
-		ajax.get('/load_xml', {}, function(response) {
+		$("#xml").css('text-decoration', 'none')
+		if (is_asked == false) {
+			$('#xml').removeAttr('href');
+			$('#xml').removeAttr('download');
+			
+			ajax.get('/load_xml', {}, function(response) {
 			$('#xml').attr('href', response);
 			$("#xml").attr("download", response);
-		}, false);
-		// document.getElementById('xml').click()
-		
+			$("#xml > span").text('Скачать xml')
+			is_asked = true;
+		});
+	}
+	else 
+		{
+			$("#xml > span").text('Запросить xml');
+			is_asked = false;
+		}	
 	}
 
 </script>

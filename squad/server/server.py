@@ -21,6 +21,7 @@ aaa = Cork('us', email_sender='endurancemayer@gmail.com',
 
 app = bottle.app()
 update_list = {}
+loads = {}
 
 Counter = lc()
 
@@ -96,13 +97,20 @@ def get_comments_updates():
 
 @route('/load_xml')
 def prepare_xml_file():
+    global loads
     aaa.require(fail_redirect='/login')
-    with open('static/resources/{}_report.xml'.format(aaa.current_user.username), 'w') as f:
+    if aaa.current_user.username not in loads:
+        loads[aaa.current_user.username] = 1
+    else:
+        loads[aaa.current_user.username] += 1
+    batch = loads[aaa.current_user.username]
+
+    with open('static/resources/{}_report_{}.xml'.format(aaa.current_user.username, batch), 'w') as f:
         f.seek(0)
         f.truncate()
         f.write(template('static/html/xml_export.tpl', posts=alchemy.get_posts_tree()))
-        # return static_file('resources/{}_report.xml'.format(aaa.current_user.username), root='static')
-        return '../resources/{}_report.xml'.format(aaa.current_user.username)
+        return '../resources/{}_report_{}.xml'.format(aaa.current_user.username, batch)
+
 
 @route('/validate_registration/<registration_code>')
 def validate_registration(registration_code):
