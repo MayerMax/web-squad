@@ -88,11 +88,21 @@ def get_comments_updates():
     when = update_list[aaa.current_user.username]
     new_comments = alchemy.comments_updates(when, aaa.current_user.username)
     update_list[aaa.current_user.username] = datetime.datetime.now()
-    result = {post_num: template('static/html/comment_section.tpl', post= new_comments[post_num])
+    result = {post_num: template('static/html/comment_section.tpl', post=new_comments[post_num])
               for post_num in new_comments}
 
     return json.dumps(result)
 
+
+@route('/load_xml')
+def prepare_xml_file():
+    aaa.require(fail_redirect='/login')
+    with open('static/resources/{}_report.xml'.format(aaa.current_user.username), 'w') as f:
+        f.seek(0)
+        f.truncate()
+        f.write(template('static/html/xml_export.tpl', posts=alchemy.get_posts_tree()))
+        # return static_file('resources/{}_report.xml'.format(aaa.current_user.username), root='static')
+        return '../resources/{}_report.xml'.format(aaa.current_user.username)
 
 @route('/validate_registration/<registration_code>')
 def validate_registration(registration_code):

@@ -87,6 +87,18 @@ class Alchemy:
             ])
         return coms
 
+    def get_posts_tree(self):
+        posts = self.__session.query(Post).all()
+        result = {}
+        for post in posts:
+            comments = [(c.id, c.text, c.date,
+                         self.__session.query(User).filter(User.id == c.user_id).one().login)
+                        for c in self.__session.query(Comment).filter(Comment.post_id == post.id).all()]
+            result[post.id] = {'title': post.title, 'text': post.text, 'img': post.image_path,
+                               'comments': comments
+                               }
+        return result
+
     def comments_updates(self, when, who):
         comments = self.__session.query(Comment).filter(Comment.date >= when)
         result = OrderedDict()
@@ -97,8 +109,9 @@ class Alchemy:
             else:
                 editions = None
             if com.post_id in result:
-                result[com.post_id].append({'id': com.id, 'user': user.login, 'date': com.date.strftime("%Y-%m-%d %H:%M"),
-                                            'text': com.text, 'editions': editions})
+                result[com.post_id].append(
+                    {'id': com.id, 'user': user.login, 'date': com.date.strftime("%Y-%m-%d %H:%M"),
+                     'text': com.text, 'editions': editions})
             else:
                 result[com.post_id] = [{'id': com.id, 'user': user.login, 'date': com.date.strftime("%Y-%m-%d %H:%M"),
                                         'text': com.text, 'editions': editions}]
@@ -137,5 +150,7 @@ class Alchemy:
 
 if __name__ == '__main__':
     a = Alchemy('data.db')
-    a.get_session().query(Comment).delete()
-    a.get_session().commit()
+    # a.get_session().query(Comment).delete()
+    # a.get_session().commit()
+    res = a.get_posts_tree()
+    print(res)

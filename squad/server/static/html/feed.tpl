@@ -31,6 +31,11 @@
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
+.xml {
+	cursor: pointer;
+	text-decoration: none;
+}
+
 	</style>
 </head>
 
@@ -39,6 +44,9 @@
   		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
     		<a href="/" class="w3-bar-item w3-button"><b> Squad Feed </b>{{name}}</a>
     		<div class="w3-right w3-hide-small">
+    			<a id='xml' onclick="download_xml(event)">
+    				<span>Export Comments<i class="fa fa-download" aria-hidden="true"></i></span>
+    			</a>
     			<form style="display: inline-block;" action="/stat" method="GET">
     				<button class="w3-btn w3-green w3-hover-light-grey" type="submit">Statistics</button>
     			</form>
@@ -98,9 +106,8 @@
 								%end
 							</ul>
 							<div class="leave-comment">
-								<!-- <form action="/thr/thread{{post[0]}}" method="POST" enctype="multipart/form-data"> -->
 									<textarea rows="4" cols="50" name="comment" placeholder="{{name}} Leave a reply..." style="display: block;"></textarea>
-									<button name="{{name}}" class="w3-btn w3-indigo w3-hover-light-grey" id='thread{{post[0]}}' type="submit" onclick="send(event)" style="margin-bottom: 15px;">Send</button>
+									<button name="{{name}}" class="w3-btn w3-indigo w3-hover-light-grey" id='thread{{post[0]}}' type="submit" onclick="send(event)" style="margin-bottom: 15px; margin-top: 15px;">Send</button>
 								</form>
 							</div>
 						</div>
@@ -149,7 +156,7 @@ function get_update() {
 	})
 }
 
-setInterval(get_update, 10000);
+setInterval(get_update, 5000);
 
 function show(event) {
 		var parent = event.target.parentElement;
@@ -183,6 +190,15 @@ function show(event) {
 		$('p img').css('width: 100%');
 		$('p img').prop("alt", "Player");
 		$('p img').wrap('<div class="w3-card" style="max-height: 400px; max-width: 400px;"></div>')
+	}
+
+	function download_xml(event) {
+		ajax.get('/load_xml', {}, function(response) {
+			$('#xml').attr('href', response);
+			$("#xml").attr("download", response);
+		}, false);
+		// document.getElementById('xml').click()
+		
 	}
 
 </script>
